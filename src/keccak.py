@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
 # Keccak Python Implementation
 
-# Constants
-n = 24
+import os
+import base64
+import binascii
+import io
+import sys
+
 # Round constants
 RC = [  0x0000000000000001, 0x0000000000008082, 0x800000000000808a,
         0x8000000080008000, 0x000000000000808b, 0x0000000080000001,
@@ -12,24 +17,20 @@ RC = [  0x0000000000000001, 0x0000000000008082, 0x800000000000808a,
         0x000000000000800a, 0x800000008000000a, 0x8000000080008081,
         0x8000000000008080, 0x0000000080000001, 0x8000000080008008 ]
 
-# Rotation Constants
-# ROTC = [ 1,  3,  6,  10, 15,
-#          21, 28, 36, 45, 55,
-#          2,  14, 27, 41, 56,
-#          8,  25, 43, 62, 18,
-#          39, 61, 20, 44 ]
-
+# rotation offset utility function
 def rot(input, offset):
-    return ((input << offset) ^ (input >> (64-offset))
+    return ((input << offset) ^ (input >> (64-offset)))
 
 # Permutations f-function
 # A are the lanes
 # B C D are intermediate lane variables
 def KeccakF1600(A):
     # Permutation round-function
-    def KeccakRound(A, RC):
+    for i in range(24): # 24 rounds
         # 0 step
-        C, D
+        C = [] 
+        D = []
+        B = []
         for x in range(5):
             C[x] = A[x][0] ^  A[x][1] ^  A[x][2] ^  A[x][3] ^ A[x][4]   
         for x in range(5):
@@ -37,26 +38,20 @@ def KeccakF1600(A):
         for x in range(5):
             for y in range(5):
                 A[x][y] =  A[x][y] ^ D[x]
-
         # ρ and π steps
         for x in range(5):
             for y in range(5):
-                B[y][(2 * x) + (3 * y)] = rot(A[x][y], (t+1)*(t+2)//2))
-
+                t = x+y
+                B[y][(2*x) + (3*y)] = rot(A[x][y], (t+1)*(t+2)//2)
         # χ step
-        for x in range(5):
-            for y in range(5):
-                A = B[x][y] ^ ((~B[(x+1)%5,y]) & B[(x+2)%5,y])
-
+        for y in range(5):
+            T = [B[x][y] for x in range(5)]
+            for x in range(5):
+                A[x][y] = T[x] ^(~(T[(x+1)%5]) & (T[(x+2)%5]))
         # ι step
-        A[0][0] = A[0][0] ^ RC
-        return A
+        A[0][0] = A[0][0] ^ RC[i]
 
-    for i in range(n):
-        A = KeccakRound(A, RC[i])
     return A
-
-
 
 # Sponge Functions
 # r: bitrate
@@ -68,11 +63,7 @@ def Keccak(r, c, input, d, outputLen):
     rateInBytes = r//8 #integer division to set rate to bytes
     blockSize = 0
     inputOffset = 0
-    # for x in range(5):
-    #     for y in range(5):
-    #         S[x][y] = 0
-    for i in range(200):
-        S[i] = bytes(0) # State initialization 
+    S = bytearray([0 for i in range(200)]) # State initialization
 
     # Padding
     S[blockSize] = S[blockSize] ^ d
@@ -96,18 +87,6 @@ def Keccak(r, c, input, d, outputLen):
         if (outputLen > 0):
             S = KeccakF1600(S)
     return outputBytes
-
-
-# State Generation
-# r: bitrate
-# c: capacity
-# class State(object):
-#     W = 5
-#     H = 5
-#
-#     def __init__(self, r, c):
-#         self.r = r
-#         self.c = class
 
 def SHA3_224(input):
     return Keccak(1152, 448, input, 0x06, 224//8)
