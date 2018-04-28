@@ -3,19 +3,23 @@ import os
 import binascii
 
 
-testpath = os.path.abspath(os.path.join('../test/TestVectors'))
+# testpath = os.path.abspath(os.path.join('../test/shabytetestvectors'))
+testpath = os.path.abspath(os.path.join('../test/SHA-3Bit'))
 verbose=False
 fileExt = '.rsp'
 files=[
     #filename, r,     c,   d,    n
-    ['SHA224', 1152, 448, 0x06, 224],
-    ['SHA256', 1088, 512, 0x06, 256],
-    ['SHA384', 832, 768, 0x06, 384],
-    ['SHA512', 576, 1024, 0x06, 512],
+    ['SHA3_224', 1152, 448, 0x06, 224],
+    ['SHA3_256', 1088, 512, 0x06, 256],
+    ['SHA3_384', 832, 768, 0x06, 384],
+    ['SHA3_512', 576, 1024, 0x06, 512],
 ]
 
-sizes=["ShortMsg"]
+sizes=["ShortMsg", "LongMsg"]
 
+
+# Testing Keccak: 
+print("Keccak Testing")
 for file in files:
     suffix = file[0]
     r = file[1]
@@ -27,8 +31,9 @@ for file in files:
         # print("Keccak[r=%d, c=%d] with '%s' suffix" % (file[1], file[2], file[3])
         extrapath = suffix + size + fileExt    
         testfile = open(os.path.join(testpath, extrapath), 'r')
-        # testfile = open(os.path.join(testpath, "SHA512ShortMsg.rsp"), 'r')
-        print(testfile.name)
+        # testfile=open(os.path.join(testpath,size+('MsgKAT_%s.txt' % suffix)), 'r')
+        
+        # print(testfile.name)
 
         for line in testfile:
             if line.startswith('Len'):
@@ -54,9 +59,12 @@ for file in files:
                     if (computed != reference):
                         print('ERROR: \n\t type=%s\n\t length=%d\n\t' % (suffix, Len))
                         # print('ERROR: \n\t type=%s\n\t length=%d\n\t message=%s\n\t reference=%s\n\t computed=%s' % (suffix, Len, Msg, binascii.hexlify(reference), binascii.hexlify(computed)))
-                        # exit()
-        # print("OK\n")
-        # print('OK: \n\t type=%s\n\t length=%d\n\t' % (suffix, Len))
-        print('ok: \n\t type=%s\n\t length=%d\n\t message=%s\n\t reference=%s\n\t computed=%s\n' % (suffix, Len, Msg, binascii.hexlify(reference), binascii.hexlify(computed)))
+                        exit()
+                                            
         testfile.close()
-
+print("OK\n")
+    
+# Testing Skein
+# Testing JH
+# Testing Grostl
+# Testing BLAKE

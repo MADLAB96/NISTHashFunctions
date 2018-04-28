@@ -28,3 +28,6 @@ and byte oriented output.
 [NIST hash function test page](https://csrc.nist.gov/Projects/Cryptographic-Algorithm-Validation-Program/Secure-Hashing)
 
 [NIST hash function testing documentation (SHA-3)](https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Algorithm-Validation-Program/documents/sha3/sha3vs.pdf)
+
+[NIST hash function test cases downloads](https://csrc.nist.gov/Projects/Cryptographic-Algorithm-Validation-Program/Secure-Hashing)
+
