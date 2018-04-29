@@ -33,7 +33,6 @@ def store64(a):
 # B C D are intermediate lane variables
 def KeccakF1600Rounds(A):
     # Permutation round-function
-    R = 1
     for i in range(24): # 24 rounds
         # 0 step
         C = [A[x][0] ^ A[x][1] ^ A[x][2] ^ A[x][3] ^ A[x][4] for x in range(5)]
@@ -43,10 +42,6 @@ def KeccakF1600Rounds(A):
             for y in range(5):
                 A[x][y] =  A[x][y] ^ D[x]
         # ρ and π steps
-        # for x in range(5):
-        # for y in range(5):
-        #     t = x+y
-        #     B[y][(2*x) + (3*y)] = [rot(A[x][y], (t+1)*(t+2)//2) for x in range(5)]
         (x, y) = (1, 0)
         current = A[x][y]
         for t in range(24):
