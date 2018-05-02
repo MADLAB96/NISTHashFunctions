@@ -18,7 +18,7 @@ def xor(*args):
 
     for x in args[1:]:
         assert len(x) == len(accum)
-        for i in xrange(len(accum)):
+        for i in range(len(accum)):
             accum[i] ^= x[i]
 
     return accum
@@ -427,4 +427,4 @@ if __name__ == '__main__':
         for pt, hexpect in vectors.items():
             hgot = groestl(sz).digest(pt).encode('hex')
             assert hexpect == hgot
-    print 'test-vectors ok'
+    # print 'test-vectors ok'

@@ -1,30 +1,30 @@
 import math
 # from memoize import memoize
-import decorator
+# import decorator
 import inspect
 
 # Not as conservative as it could be
-def argkey(al, a, kw):
-    kw = dict(kw)
-    kw.update(zip(al, a))
-    return tuple(sorted(kw.items()))
+# def argkey(al, a, kw):
+#     kw = dict(kw)
+#     kw.update(zip(al, a))
+#     return tuple(sorted(kw.items()))
 
-def memoize(dict_factory=dict, args_to_key=argkey):
-    def memoizer(f):
-        h = dict_factory()
-        al = inspect.getargspec(f)[0]
-        def newf(*a, **kw):
-            key = args_to_key(al, a, kw)
-            try:
-                return h[key]
-            except KeyError:
-                res = f(*a, **kw)
-                h[key] = res
-                return res
-        res = decorator.new_wrapper(newf, f)
-        res.cache = h
-        return res
-    return memoizer
+# def memoize(dict_factory=dict, args_to_key=argkey):
+#     def memoizer(f):
+#         h = dict_factory()
+#         al = inspect.getargspec(f)[0]
+#         def newf(*a, **kw):
+#             key = args_to_key(al, a, kw)
+#             try:
+#                 return h[key]
+#             except KeyError:
+#                 res = f(*a, **kw)
+#                 h[key] = res
+#                 return res
+#         res = decorator.new_wrapper(newf, f)
+#         res.cache = h
+#         return res
+#     return memoizer
 
 
 def bigend_toint(r):
@@ -76,7 +76,7 @@ def p_d(d, i):
     assert i < (1<<d)
     return pi_d(d, p_prime_d(d, phi_d(d, i)))
 
-@memoize()
+# @memoize()
 def perms_d(d):
     return [p_d(d, i) for i in range(1<<d)]
 
@@ -100,7 +100,7 @@ def intsqrt(n):
 def czero(d):
     return bigend_tobin(1<<d,intsqrt(2L**(1 + (2<<d))) - 2L**(1<<d))
 
-@memoize()
+# @memoize()
 def JH_c(d, i):
     assert d >= 4
     if i == 0:

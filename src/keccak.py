@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Keccak Python Implementation
 
 import os
@@ -41,20 +40,21 @@ def KeccakF1600Rounds(A):
         for x in range(5):
             for y in range(5):
                 A[x][y] =  A[x][y] ^ D[x]
-        # ρ and π steps
+
+        # p and pi steps
         (x, y) = (1, 0)
         current = A[x][y]
         for t in range(24):
             (x, y) = (y, (2*x+3*y)%5)
             (current, A[x][y]) = (A[x][y], rot(current, (t+1)*(t+2)//2))
 
-        # χ step
+        # x step
         for y in range(5):
             T = [A[x][y] for x in range(5)]
             for x in range(5):
                 A[x][y] = T[x] ^(~(T[(x+1)%5]) & (T[(x+2)%5]))
         
-        # ι step
+        # l step
         A[0][0] = A[0][0] ^ RC[i]
 
     return A
