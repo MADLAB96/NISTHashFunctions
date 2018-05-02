@@ -1,4 +1,4 @@
-# Final Project for CS490 Cryptography. 
+﻿# Final Project for CS490 Cryptography. 
 ## Python implementation of NIST Hash Function Competition finalists.
 
 ### NIST Hash Function Competition Evaluation
@@ -14,6 +14,10 @@ test vectors we will use should be similar if not the same used to help determin
 winner of the hash function competition. The NIST test vectors include a large number
 of test inputs, and the expected outputs for each test case. There is also a vector for bit
 and byte oriented output.
+
+the implementation of Grostl and BLAKE are the open source versions that can be found based
+in the info in the file itself for that algorithm. JH and Skein not implemented so we used 
+the data available from NIST and others to draw conclusions about them.
 
 ### Hash Functions
 [BLAKE](https://en.wikipedia.org/wiki/BLAKE_(hash_function)), 
