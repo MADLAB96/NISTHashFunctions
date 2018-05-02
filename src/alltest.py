@@ -18,15 +18,11 @@ files=[
     ['SHA3_256', 1088, 512, 0x06, 256],
     ['SHA3_384', 832, 768, 0x06, 384],
     ['SHA3_512', 576, 1024, 0x06, 512],
-    # ['SHA3-224', 1152, 448, 0x06, 224],
-    # ['SHA3-256', 1088, 512, 0x06, 256],
-    # ['SHA3-384', 832, 768, 0x06, 384],
-    # ['SHA3-512', 576, 1024, 0x06, 512],
 ]
 
 sizes=["ShortMsg"]
 
-of = open('test1.txt', 'w')
+of = open('output.txt', 'w')
 of.write('Keccak:\n')
 
 total = 0.0
@@ -73,12 +69,6 @@ for file in files:
                     # print("TIME of %s: %f" % (suffix, (t2-t1)))       
                     total += (t2-t1)
                     of.write('%f\n' % (t2-t1))
-                    
-                    #Compare the results
-                # if (computed != reference):
-                #     print('ERROR: \n\t type=%s\n\t length=%d\n\t' % (suffix, Len))
-                #     print('ERROR: \n\t type=%s\n\t length=%d\n\t message=%s\n\t reference=%s\n\t computed=%s' % (suffix, Len, Msg, binascii.hexlify(reference), binascii.hexlify(computed)))
-                #     exit()
                                             
         testfile.close()
 print("OK -- %f\n" % (total))
@@ -235,16 +225,7 @@ for file in files:
                     t2 = time.time()
                     # print("TIME of %s: %f" % (suffix, (t2-t1))) 
                     total += (t2-t1)             
-                    of.write('%f\n' % (t2-t1))
-                    
-                    # Compare the results
-                    # if (computed != reference):
-                        # print('ERROR: type=%s length=%d' % (suffix, Len))
-                        # print('ERROR: type=%s length=%d\n\t message=%s\n\t reference=%s\n\t computed =%s' % (suffix, Len, Msg, binascii.hexlify(reference), binascii.hexlify(computed)))
-                        # exit()
-                    # else: 
-                        # print('OK: \n\t type=%s\n\t length=%d\n\t' % (suffix, Len))
-                        
+                    of.write('%f\n' % (t2-t1))                        
                                             
         testfile.close()
 print("OK -- %f\n" % (total))
@@ -294,16 +275,7 @@ for file in files:
                     t2 = time.time()
                     # print("TIME of %s: %f" % (suffix, (t2-t1))) 
                     total += (t2-t1)             
-                    of.write('%f\n' % (t2-t1))
-                    
-                    # Compare the results
-                    # if (computed != reference):
-                        # print('ERROR: type=%s length=%d' % (suffix, Len))
-                        # print('ERROR: type=%s length=%d\n\t message=%s\n\t reference=%s\n\t computed =%s' % (suffix, Len, Msg, binascii.hexlify(reference), binascii.hexlify(computed)))
-                        # exit()
-                    # else: 
-                        # print('OK: \n\t type=%s\n\t length=%d\n\t' % (suffix, Len))
-                        
+                    of.write('%f\n' % (t2-t1))                        
                                             
         testfile.close()
 print("OK -- %f\n" % (total))

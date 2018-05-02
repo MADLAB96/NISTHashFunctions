@@ -19,6 +19,8 @@ the implementation of Grostl and BLAKE are the open source versions that can be 
 in the info in the file itself for that algorithm. JH and Skein not implemented so we used 
 the data available from NIST and others to draw conclusions about them.
 
+### Makefile Included
+
 ### Hash Functions
 [BLAKE](https://en.wikipedia.org/wiki/BLAKE_(hash_function)), 
 [Skein](http://www.skein-hash.info/about), 
