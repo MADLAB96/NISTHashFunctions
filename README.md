@@ -31,3 +31,4 @@ and byte oriented output.
 
 [NIST hash function test cases downloads](https://csrc.nist.gov/Projects/Cryptographic-Algorithm-Validation-Program/Secure-Hashing)
 
+[NIST final report](https://nvlpubs.nist.gov/nistpubs/ir/2012/NIST.IR.7896.pdf)
